@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "title": "Ocha Travel Transport | Private Car Service with Driver, Thailand",
+    "description": "Private car service with driver, van tours, VIP vehicles across Thailand 24/7. Call 0661244999"
+  },
+  "brand": {
+    "name": "OCHA",
+    "tagline": "TRAVEL TRANSPORT"
+  },
+  "nav": {
+    "services": "Services",
+    "about": "About Us",
+    "serviceAreas": "Service Areas",
+    "contact": "Contact Us",
+    "portfolio": "Portfolio",
+    "callNow": "Call Now"
+  },
+  "hero": {
+    "badge": "Premium Service",
+    "title": "Private Car Service with Driver,Nationwide 24/7",
+    "tagline": "Airport transfers, tours, excursions, and travel on every route. Safe, reliable, and always on time.",
+    "cta": "Contact Us",
+    "explore": "Our Services"
+  },
+  "about": {
+    "badge": "Why Choose Us",
+    "title": "About Us",
+    "description": "Founded with a commitment to the best car rental experience, Ocha Travel has grown from over 9 years of expertise. Well-maintained vehicles, carefully selected drivers, and strict safety standards — trusted by both Thai and international customers on every route.",
+    "indicators": {
+      "experience": { "value": "9+", "label": "Years of Experience" },
+      "trips": { "value": "5,000+", "label": "Trips Completed" },
+      "availability": { "value": "24/7", "label": "Available Around the Clock" },
+      "coverage": { "value": "77", "label": "Provinces Nationwide" }
+    }
+  },
+  "services": {
+    "badge": "Services",
+    "title": "Our Services",
+    "subtitle": "We offer a wide range of vehicles with professional drivers for every route.",
+    "items": [
+      {
+        "id": "sedan",
+        "name": "Sedan",
+        "seats": "4-5 Seats",
+        "description": "Perfect for city travel, airport transfers, and business appointments."
+      },
+      {
+        "id": "suv",
+        "name": "SUV",
+        "seats": "6-7 Seats",
+        "description": "Ideal for families, provincial trips, and comfortable long-distance travel."
+      },
+      {
+        "id": "van-10",
+        "name": "Van 10 Seats",
+        "seats": "10 Seats",
+        "description": "Standard van for small groups, tours, and airport transfers."
+      },
+      {
+        "id": "vip-van",
+        "name": "VIP Van + Alphard",
+        "seats": "10 Seats",
+        "description": "Comfortable VIP van for small group tours and special events."
+      },
+      {
+        "id": "large-van",
+        "name": "Large Van",
+        "seats": "13 Seats",
+        "description": "Large van for big groups, nationwide tours, and educational trips."
+      },
+      {
+        "id": "pickup",
+        "name": "Pickup Truck + 6-Wheeler, 10-Wheeler",
+        "seats": "Cargo",
+        "description": "Cargo transport service for moving goods and deliveries across Thailand."
+      }
+    ]
+  },
+  "portfolio": {
+    "badge": "Our Portfolio",
+    "title": "Customer Service Gallery",
+    "subtitle": "Examples of our customer pickup and delivery services",
+    "tabs": {
+      "general": "General Customers",
+      "transport": "Transport",
+      "van": "Van Service"
+    },
+    "alt": {
+      "general": "General customer pickup service",
+      "transport": "Transport service",
+      "van": "Van customer service"
+    }
+  },
+  "serviceAreas": {
+    "badge": "Coverage",
+    "title": "Nationwide Coverage",
+    "description": "We provide services across all of Thailand, including cities and border areas with pickup and drop-off on every route.",
+    "allProvinces": "All 77 provinces nationwide",
+    "regions": [
+      {
+        "name": "Bangkok & Metropolitan Area",
+        "areas": ["Bangkok", "Nonthaburi", "Pathum Thani", "Samut Prakan", "Samut Sakhon", "Nakhon Pathom"]
+      },
+      {
+        "name": "Central Thailand",
+        "areas": ["Ayutthaya", "Ang Thong", "Lopburi", "Sing Buri", "Chai Nat", "Saraburi", "Nakhon Nayok", "Suphan Buri"]
+      },
+      {
+        "name": "Northern Thailand",
+        "areas": ["Chiang Mai", "Chiang Rai", "Lamphun", "Lampang", "Mae Hong Son", "Phrae", "Nan", "Phayao", "Uttaradit", "Sukhothai", "Tak", "Kamphaeng Phet", "Phichit", "Phitsanulok", "Phetchabun", "Nakhon Sawan", "Uthai Thani"]
+      },
+      {
+        "name": "Northeastern Thailand (Isan)",
+        "areas": ["Nakhon Ratchasima", "Buri Ram", "Surin", "Si Sa Ket", "Ubon Ratchathani", "Yasothon", "Chaiyaphum", "Amnat Charoen", "Nong Bua Lam Phu", "Khon Kaen", "Udon Thani", "Loei", "Nong Khai", "Maha Sarakham", "Roi Et", "Kalasin", "Sakon Nakhon", "Nakhon Phanom", "Mukdahan", "Bueng Kan"]
+      },
+      {
+        "name": "Eastern Thailand",
+        "areas": ["Chonburi", "Rayong", "Chanthaburi", "Trat", "Chachoengsao", "Prachin Buri", "Sa Kaeo"]
+      },
+      {
+        "name": "Western Thailand",
+        "areas": ["Ratchaburi", "Kanchanaburi", "Samut Songkhram", "Phetchaburi", "Prachuap Khiri Khan"]
+      },
+      {
+        "name": "Southern Thailand",
+        "areas": ["Chumphon", "Ranong", "Surat Thani", "Phang Nga", "Krabi", "Phuket", "Nakhon Si Thammarat", "Trang", "Phatthalung", "Songkhla", "Satun"]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Fill out the form below to inquire or book our services",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "phone": "Phone Number",
+      "phonePlaceholder": "0xx-xxx-xxxx",
+      "email": "Email",
+      "emailPlaceholder": "example@email.com",
+      "serviceType": "Service Type",
+      "serviceTypePlaceholder": "Select service type",
+      "driverPreference": "Driver Preference",
+      "driverPreferencePlaceholder": "Select driver preference",
+      "serviceDate": "Preferred Service Date",
+      "serviceDatePlaceholder": "Select date",
+      "message": "Message",
+      "messagePlaceholder": "Please specify details such as pickup/drop-off points, number of passengers",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Message sent successfully! We will contact you as soon as possible.",
+      "error": "An error occurred. Please try again."
+    },
+    "serviceTypes": [
+      { "value": "sedan", "label": "Sedan" },
+      { "value": "suv", "label": "SUV" },
+      { "value": "van-10", "label": "Van 10 Seats" },
+      { "value": "vip-van", "label": "VIP Van" },
+      { "value": "large-van", "label": "Large Van" },
+      { "value": "pickup", "label": "Pickup Truck" },
+      { "value": "other", "label": "Other" }
+    ],
+    "driverTypes": [
+      { "value": "male", "label": "Male Driver" },
+      { "value": "female", "label": "Female Driver" },
+      { "value": "any", "label": "Any Driver" }
+    ],
+    "validation": {
+      "nameRequired": "Please enter your name",
+      "phoneRequired": "Please enter your phone number",
+      "phoneInvalid": "Invalid phone format (e.g., 0661244999)",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Invalid email format",
+      "serviceTypeRequired": "Please select a service type",
+      "serviceDateRequired": "Please select a date",
+      "serviceDatePast": "Please select a future date",
+      "messageRequired": "Please enter a message"
+    }
+  },
+  "footer": {
+    "address": "168/284 Moo 3, Pathum Thani 12000, Thailand",
+    "phone": "0661244999",
+    "copyright": "© {year} Ocha Travel Transport Co., Ltd. All rights reserved.",
+    "links": "Quick Links",
+    "services": "Services",
+    "contactInfo": "Contact Info",
+    "company": "Ocha Travel Transport Co., Ltd.",
+    "desc": "Private car service with driver, nationwide.",
+    "available247": "Available 24/7"
+  }
+}
