@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { lang: rawLang } = await params;
   const lang = toLang(rawLang);
   const dict = await getDictionary(lang);
-  const baseUrl = "https://ochatravel.com";
+  const baseUrl = "https://ochatravel.co.th";
 
   return {
     title: dict.meta.title,
@@ -77,7 +77,7 @@ export default async function LangLayout({
       closes: "23:59",
     },
     areaServed: { "@type": "Country", name: "Thailand" },
-    url: "https://ochatravel.com",
+    url: "https://ochatravel.co.th",
   };
 
   return (

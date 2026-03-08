@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ochatravel.com/sitemap.xml
+Sitemap: https://ochatravel.co.th/sitemap.xml
