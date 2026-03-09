@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 
-const WECHAT_ID = "ochatravel_999";
+const WECHAT_ID = "_ochatravel_999";
 
 type SocialConfig = {
   platform: string;

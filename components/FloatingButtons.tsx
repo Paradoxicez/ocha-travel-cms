@@ -4,7 +4,7 @@ import { Phone } from "lucide-react";
 import { useState } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 
-const WECHAT_ID = "ochatravel_999";
+const WECHAT_ID = "_ochatravel_999";
 
 const floatingSocials = [
   {
