@@ -9,13 +9,13 @@ Build a bilingual (TH/EN) single-page landing page for Ocha Travel Transport,
 a Thai transportation business. The page showcases vehicle rental services,
 displays trust signals, and provides a contact form that sends inquiries
 directly to the business owner's email. Built with Next.js App Router,
-Tailwind CSS, and Resend for email delivery. Static site generation ensures
-fast load times and strong SEO.
+Tailwind CSS, and Nodemailer + Gmail SMTP for email delivery. Deployed
+via Docker + Nginx reverse proxy with Cloudflare SSL.
 
 ## Technical Context
 
 **Language/Version**: TypeScript 5.x, Node.js 20+
-**Primary Dependencies**: Next.js (App Router), Tailwind CSS, Resend, react-day-picker, date-fns, @next/third-parties
+**Primary Dependencies**: Next.js (App Router), Tailwind CSS, Nodemailer, react-day-picker, date-fns, @next/third-parties
 **Storage**: N/A (no database; static content + transient email delivery)
 **Testing**: Manual verification per quickstart checklist
 **Target Platform**: Web (all modern browsers: Chrome, Safari, Firefox, Edge)
@@ -34,8 +34,8 @@ fast load times and strong SEO.
 | II. Bilingual by Default | PASS | Built-in Next.js i18n via `[lang]` routing, JSON dictionaries, TH default, locale-specific meta tags |
 | III. Trustworthy Design | PASS | Professional layout with trust indicators section, consistent color scheme (#e01d47/black/white), real business logos |
 | IV. Responsive & Accessible | PASS | Tailwind CSS responsive utilities, mobile-first approach, semantic HTML, touch-friendly social links |
-| V. Secure Contact | PASS | Server-side email via Resend (email never exposed), honeypot spam protection, input validation, submit-disable UX |
-| Technology Constraints | PASS | Lighthouse target >= 90 achievable with SSG, images optimized via next/image, HTTPS via Vercel |
+| V. Secure Contact | PASS | Server-side email via Nodemailer + Gmail SMTP (email never exposed), honeypot spam protection, input validation, submit-disable UX |
+| Technology Constraints | PASS | Lighthouse target >= 90 achievable with SSG, images optimized via next/image, HTTPS via Cloudflare SSL + Nginx |
 | Development Workflow | PASS | ESLint + Prettier for linting, env variables for secrets, image optimization built-in |
 
 **Post-Phase 1 re-check**: All gates still PASS. No violations detected.

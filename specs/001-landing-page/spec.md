@@ -12,7 +12,7 @@
 - Logo ใช้ `/logos/Ocha-Symbol-Only_0.png` (symbol only) + ข้อความ "OCHA" / "TRAVEL TRANSPORT"
 - ข้อมูลบริการอ้างอิงจากเว็บเดิม taxiserviceocha999.com แต่ปรับปรุงเนื้อหา
 - เบอร์ติดต่อ: 0661244999
-- Social media & messaging: Line Official, Facebook (Ocha.Jirasak), Instagram (mr.ocha999), WhatsApp, Messenger, WeChat (ochatravel_999)
+- Social media & messaging: Line Official, Facebook (Ocha.Jirasak), Instagram (mr.ocha999), WhatsApp, Messenger, WeChat (_ochatravel_999), Telegram (@Ochataxiservice999)
 - ที่อยู่: 168/284 ม.3, ปทุมธานี 12000
 - หน้าเว็บเป็น single-page landing page (ไม่ใช่ multi-page site)
 - Contact form ส่งข้อมูลไปยัง email โดยใช้ backend service (ไม่ expose email ใน client)
@@ -22,7 +22,7 @@
 
 ### Session 2026-03-02
 
-- Q: ต้องการเพิ่มช่องทาง Line Official หรือ messaging อื่นนอกจาก Facebook/Instagram หรือไม่? → A: เพิ่มทั้ง 6 ช่องทาง: Line Official, Facebook, Instagram, WhatsApp, Messenger, WeChat (ochatravel_999)
+- Q: ต้องการเพิ่มช่องทาง Line Official หรือ messaging อื่นนอกจาก Facebook/Instagram หรือไม่? → A: เพิ่มทั้ง 7 ช่องทาง: Line Official, Facebook, Instagram, WhatsApp, Messenger, WeChat (_ochatravel_999), Telegram (@Ochataxiservice999)
 - Q: ต้องการ SEO และ Social Sharing ระดับไหน? → A: SEO แบบเต็ม (meta title, description, OG tags, structured data/schema markup, sitemap, robots.txt)
 - Q: ต้องการเพิ่มฟิลด์เลือกประเภทบริการใน contact form หรือไม่? → A: เพิ่ม dropdown เลือกประเภทบริการ + calendar เลือกวันที่ต้องการใช้บริการ
 - Q: ต้องการ Analytics & Tracking หรือไม่? → A: เพิ่ม Google Analytics (GA4) ติดตาม page views, form submissions, social clicks
@@ -93,7 +93,7 @@ profile ที่ถูกต้อง กดเบอร์โทรบน mobi
 4. **Given** ผู้ใช้อยู่บนหน้าเว็บ, **When** กดลิงค์ WhatsApp, **Then** เปิด WhatsApp chat พร้อมเบอร์ธุรกิจ
 5. **Given** ผู้ใช้อยู่บนหน้าเว็บ, **When** กดลิงค์ Messenger, **Then** เปิด Facebook Messenger chat กับ page ของ Ocha
 6. **Given** ผู้ใช้ใช้ mobile, **When** กดเบอร์โทรศัพท์, **Then** เปิดแอปโทรศัพท์พร้อมเบอร์ 0661244999
-7. **Given** ผู้ใช้อยู่บนหน้าเว็บ, **When** ดูส่วน footer, **Then** เห็นที่อยู่, เบอร์โทร, social/messaging links ทั้ง 6 ช่องทาง, และข้อมูลลิขสิทธิ์
+7. **Given** ผู้ใช้อยู่บนหน้าเว็บ, **When** ดูส่วน footer, **Then** เห็นที่อยู่, เบอร์โทร, social/messaging links ทั้ง 7 ช่องทาง, และข้อมูลลิขสิทธิ์
 
 ---
 
@@ -122,11 +122,11 @@ profile ที่ถูกต้อง กดเบอร์โทรบน mobi
 - **FR-009**: หลังส่ง form สำเร็จ MUST แสดง confirmation message
 - **FR-010**: หลังส่ง form ล้มเหลว MUST แสดง error message ที่ชัดเจน
 - **FR-011**: Contact form MUST มี honeypot field เพื่อป้องกัน spam
-- **FR-012**: Social media และ messaging links MUST เปิดใน tab ใหม่ หรือ deep link ไปยังแอป (Line Official, Facebook, Instagram, WhatsApp, Messenger, WeChat)
+- **FR-012**: Social media และ messaging links MUST เปิดใน tab ใหม่ หรือ deep link ไปยังแอป (Line Official, Facebook, Instagram, WhatsApp, Messenger, WeChat, Telegram)
 - **FR-013**: เบอร์โทรศัพท์ MUST เป็น clickable tel: link
 - **FR-014**: หน้าเว็บ MUST responsive บน mobile (320px+), tablet (768px+), desktop (1024px+)
 - **FR-015**: โทนสี MUST ใช้ `#e01d47` เป็นสีหลัก, ดำและขาวเป็นสีรอง
-- **FR-016**: Footer MUST แสดงที่อยู่ธุรกิจ, เบอร์โทร, social/messaging links ทั้ง 6 ช่องทาง (Line, Facebook, Instagram, WhatsApp, Messenger, WeChat), copyright
+- **FR-016**: Footer MUST แสดงที่อยู่ธุรกิจ, เบอร์โทร, social/messaging links ทั้ง 7 ช่องทาง (Line, Facebook, Instagram, WhatsApp, Messenger, WeChat, Telegram), copyright
 - **FR-017**: ภาษาที่เลือก MUST ถูกจดจำเมื่อผู้ใช้กลับมาใหม่
 - **FR-018**: ปุ่มส่ง form MUST ถูก disable ระหว่างรอ response เพื่อป้องกัน duplicate submission
 - **FR-019**: หน้าเว็บ MUST มี meta title และ meta description ที่เหมาะสมทั้งภาษาไทยและอังกฤษ ตามภาษาที่เลือก
@@ -144,7 +144,7 @@ profile ที่ถูกต้อง กดเบอร์โทรบน mobi
 
 - **Service (บริการ)**: ประเภทรถ, จำนวนที่นั่ง, คำอธิบายบริการ (TH/EN), ไอคอนหรือรูปภาพ
 - **Contact Inquiry (การติดต่อ)**: ชื่อผู้ติดต่อ, เบอร์โทร, email, ประเภทบริการที่สนใจ, วันที่ต้องการใช้บริการ, ข้อความ, วันเวลาที่ส่ง, ภาษาที่ใช้ตอนส่ง
-- **Social Link (ช่องทาง social/messaging)**: ชื่อ platform (Line, Facebook, Instagram, WhatsApp, Messenger, WeChat), URL หรือ deep link หรือ ID, icon
+- **Social Link (ช่องทาง social/messaging)**: ชื่อ platform (Line, Facebook, Instagram, WhatsApp, Messenger, WeChat, Telegram), URL หรือ deep link หรือ ID, icon
 
 ## Section Layout Order
 
@@ -158,7 +158,7 @@ profile ที่ถูกต้อง กดเบอร์โทรบน mobi
 5. **Services** — 6 ประเภทรถพร้อมรูปภาพทุกประเภท (FR-006, FR-028)
 6. **Service Areas** — แผนที่ประเทศไทย + 7 ภูมิภาค ครบ 77 จังหวัด พร้อม interactive pins
 7. **Contact** — Contact form + เบอร์โทร 0661244999 (FR-007–FR-011)
-8. **Footer** — ข้อมูลธุรกิจ + social/messaging links 6 ช่องทาง + copyright (FR-016)
+8. **Footer** — ข้อมูลธุรกิจ + social/messaging links 7 ช่องทาง + copyright (FR-016)
 
 ## Success Criteria *(mandatory)*
 

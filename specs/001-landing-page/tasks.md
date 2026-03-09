@@ -19,7 +19,7 @@
 
 - [X] T001 Initialize Next.js project with TypeScript and App Router, install dependencies (next, react, react-dom, tailwindcss, resend, react-day-picker, date-fns, @next/third-parties) at repository root
 - [X] T002 [P] Configure tailwind.config.ts with brand colors (#e01d47 primary, #000000, #FFFFFF), Thai-friendly font stack (Noto Sans Thai + system fonts), and responsive breakpoints
-- [X] T003 [P] Create .env.example with all environment variables (RESEND_API_KEY, BUSINESS_EMAIL, EMAIL_FROM, NEXT_PUBLIC_GA_MEASUREMENT_ID, NEXT_PUBLIC_LINE_URL, NEXT_PUBLIC_FACEBOOK_URL, NEXT_PUBLIC_INSTAGRAM_URL, NEXT_PUBLIC_WHATSAPP_URL, NEXT_PUBLIC_MESSENGER_URL)
+- [X] T003 [P] Create .env.example with all environment variables (GMAIL_USER, GMAIL_APP_PASSWORD, BUSINESS_EMAIL, NEXT_PUBLIC_GA_MEASUREMENT_ID, NEXT_PUBLIC_LINE_URL, NEXT_PUBLIC_FACEBOOK_URL, NEXT_PUBLIC_INSTAGRAM_URL, NEXT_PUBLIC_WHATSAPP_URL, NEXT_PUBLIC_MESSENGER_URL, NEXT_PUBLIC_TELEGRAM_URL)
 - [X] T004 [P] Configure next.config.ts with image optimization settings for logos/ directory
 - [X] T005 [P] Configure ESLint (.eslintrc.json) and Prettier (.prettierrc) with TypeScript and Next.js rules
 
@@ -55,7 +55,7 @@
 - [X] T016 [P] [US1] Create Services component in components/Services.tsx with 5 service cards (sedan, SUV, VIP van, large van, pickup) showing name, seat count, and description from dictionary. Use responsive grid (1 col mobile, 2 col tablet, 3 col desktop)
 - [X] T017 [P] [US1] Create ServiceAreas component in components/ServiceAreas.tsx showing nationwide coverage text with highlighted regions (Bangkok, Eastern Thailand, border areas) from dictionary
 - [X] T018 [US1] Create ContactForm component in components/ContactForm.tsx with fields: name (text input), phone (tel input with Thai format validation), email (email input), serviceType (dropdown from dictionary), serviceDate (react-day-picker calendar with date-fns th locale, past dates disabled), message (textarea), honeypot (hidden field). Include client-side validation, submit button disable during request, success/error message display, form state management (idle/submitting/success/error)
-- [X] T019 [US1] Implement POST /api/contact API route in app/api/contact/route.ts per contracts/contact-api.md: validate all fields server-side, check honeypot (return fake success if filled), send email via Resend SDK to BUSINESS_EMAIL with formatted HTML body, return JSON response with success/error status
+- [X] T019 [US1] Implement POST /api/contact API route in app/api/contact/route.ts per contracts/contact-api.md: validate all fields server-side, check honeypot (return fake success if filled), send email via Nodemailer + Gmail SMTP to BUSINESS_EMAIL with formatted HTML body, return JSON response with success/error status
 - [X] T020 [US1] Assemble landing page in app/[lang]/page.tsx importing and composing all components in order: Header, Hero, AboutUs, Services, ServiceAreas, ContactForm. Pass dictionary data as props to each component
 - [X] T021 [US1] Add Schema.org LocalBusiness structured data as JSON-LD script tag in app/[lang]/layout.tsx with business name, address (168/284 ม.3 ปทุมธานี 12000), phone (0661244999), and service area
 
@@ -88,7 +88,7 @@
 
 ### Implementation for User Story 3
 
-- [X] T026 [P] [US3] Create SocialLinks component in components/SocialLinks.tsx with icon links for all 6 channels (Line, Facebook, Instagram, WhatsApp, Messenger, WeChat) + phone (tel: link). Each link opens in new tab (target="_blank" rel="noopener noreferrer") or uses platform deep link. URLs from environment variables (WeChat uses ID: ochatravel_999). Include GA4 sendGAEvent tracking for each click with platform name
+- [X] T026 [P] [US3] Create SocialLinks component in components/SocialLinks.tsx with icon links for all 7 channels (Line, Facebook, Instagram, WhatsApp, Messenger, WeChat, Telegram) + phone (tel: link). Each link opens in new tab (target="_blank" rel="noopener noreferrer") or uses platform deep link. URLs from environment variables (WeChat uses ID: _ochatravel_999, copy-to-clipboard popup). Include GA4 sendGAEvent tracking for each click with platform name
 - [X] T027 [US3] Create Footer component in components/Footer.tsx with business address, phone number (clickable tel: link), SocialLinks component, copyright text with current year, and dictionary translations for all text
 - [X] T028 [US3] Integrate Footer into page layout by adding it to app/[lang]/page.tsx after ContactForm section, and optionally add SocialLinks to Header for quick access on all viewport sizes
 - [X] T029 [US3] Add GA4 event tracking for social link clicks and phone number clicks using sendGAEvent from @next/third-parties/google in components/SocialLinks.tsx (event: social_link_click, params: platform, link_location)
@@ -225,4 +225,4 @@ With a single developer (sequential):
 - Stop at any checkpoint to validate story independently
 - Logo files already exist in /logos directory (4 variants available)
 - Contact info: phone 0661244999, address 168/284 ม.3 ปทุมธานี 12000
-- Social URLs: Facebook (Ocha.Jirasak), Instagram (mr.ocha999), WhatsApp (wa.me/66661244999), Messenger (m.me/Ocha.Jirasak), Line (TBD), WeChat ID: ochatravel_999
+- Social URLs: Facebook (Ocha.Jirasak), Instagram (mr.ocha999), WhatsApp (wa.me/66661244999), Messenger (m.me/Ocha.Jirasak), Line (lin.ee/A1kdeUD), WeChat ID: _ochatravel_999, Telegram (@Ochataxiservice999)
