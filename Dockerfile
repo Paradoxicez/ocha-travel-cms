@@ -9,6 +9,8 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# .env.local must be present at build time for NEXT_PUBLIC_* to be inlined
+COPY .env.local .env.local
 RUN npm run build
 
 # Stage 3: Production
