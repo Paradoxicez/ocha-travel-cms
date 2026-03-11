@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-03-02
 
 ## Active Technologies
+- TypeScript 5.x, Node.js 20+ + Next.js (App Router), Tailwind CSS, Nodemailer, react-day-picker, date-fns, @next/third-parties (001-landing-page)
+- N/A (no database; static content + transient email delivery) (001-landing-page)
 
 - TypeScript 5.x, Node.js 20+ + Next.js (App Router), Tailwind CSS, Resend, react-day-picker, date-fns, @next/third-parties (001-landing-page)
 
@@ -22,6 +24,7 @@ npm test && npm run lint
 TypeScript 5.x, Node.js 20+: Follow standard conventions
 
 ## Recent Changes
+- 001-landing-page: Added TypeScript 5.x, Node.js 20+ + Next.js (App Router), Tailwind CSS, Nodemailer, react-day-picker, date-fns, @next/third-parties
 
 - 001-landing-page: Added TypeScript 5.x, Node.js 20+ + Next.js (App Router), Tailwind CSS, Resend, react-day-picker, date-fns, @next/third-parties
 
