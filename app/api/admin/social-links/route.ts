@@ -1,0 +1,48 @@
+import { NextResponse } from "next/server";
+import { auth } from "@/auth";
+import { db } from "@/lib/db";
+import { socialLinks } from "@/lib/schema";
+import { asc } from "drizzle-orm";
+
+export async function GET() {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const rows = await db.select().from(socialLinks).orderBy(asc(socialLinks.sortOrder));
+    return NextResponse.json({ success: true, data: rows });
+  } catch {
+    return NextResponse.json({ success: false, error: "Failed to fetch social links" }, { status: 500 });
+  }
+}
+
+export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const body = await request.json();
+    const { platform, url, icon } = body;
+
+    if (!platform || !url) {
+      return NextResponse.json(
+        { success: false, error: "Missing required fields" },
+        { status: 400 },
+      );
+    }
+
+    const result = await db
+      .insert(socialLinks)
+      .values({ platform, url, icon: icon || null })
+      .returning();
+
+    return NextResponse.json({ success: true, data: result[0] }, { status: 201 });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "Failed to create social link";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
+  }
+}
