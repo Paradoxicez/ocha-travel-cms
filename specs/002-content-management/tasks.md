@@ -17,10 +17,10 @@
 
 **Purpose**: Install dependencies and configure database + auth infrastructure
 
-- [ ] T001 Install CMS dependencies: `npm install better-sqlite3 drizzle-orm next-auth@5 sharp bcryptjs` and dev deps `npm install -D drizzle-kit @types/better-sqlite3 @types/bcryptjs`
-- [ ] T002 Initialize shadcn/ui: `npx shadcn@latest init` with default style, zinc color, CSS variables. Add base components: `npx shadcn@latest add button input label textarea select card dialog table tabs toast dropdown-menu separator badge`
-- [ ] T003 [P] Create Drizzle config in drizzle.config.ts pointing to SQLite at `./data/ocha.db` with schema at `lib/schema.ts`
-- [ ] T004 [P] Add CMS environment variables to .env.example and .env.local: AUTH_SECRET, ADMIN_USERNAME, ADMIN_PASSWORD_HASH, DATA_DIR
+- [X] T001 Install CMS dependencies: `npm install better-sqlite3 drizzle-orm next-auth@5 sharp bcryptjs` and dev deps `npm install -D drizzle-kit @types/better-sqlite3 @types/bcryptjs`
+- [X] T002 Initialize shadcn/ui: `npx shadcn@latest init` with default style, zinc color, CSS variables. Add base components: `npx shadcn@latest add button input label textarea select card dialog table tabs toast dropdown-menu separator badge`
+- [X] T003 [P] Create Drizzle config in drizzle.config.ts pointing to SQLite at `./data/ocha.db` with schema at `lib/schema.ts`
+- [X] T004 [P] Add CMS environment variables to .env.example and .env.local: AUTH_SECRET, ADMIN_USERNAME, ADMIN_PASSWORD_HASH, DATA_DIR
 
 ---
 
@@ -28,16 +28,16 @@
 
 **Purpose**: Database schema, auth system, and admin layout that ALL user stories depend on
 
-- [ ] T005 Define all Drizzle schema tables in lib/schema.ts: adminUsers, siteSettings, heroContent, aboutContent, trustIndicators, services, serviceImages, galleryCategories, galleryImages, serviceRegions, contactInfo, socialLinks, seoMeta — per data-model.md entity definitions
-- [ ] T006 Create database connection singleton in lib/db.ts using better-sqlite3 with WAL mode enabled, Drizzle ORM wrapper, and automatic directory/file creation for data/ocha.db
-- [ ] T007 Create seed script in scripts/seed-from-json.ts that reads existing dictionaries/th.json + dictionaries/en.json and inserts all content into database tables (services, about, hero, trust indicators, gallery categories/images from /pics/performance/, service regions, contact info, social links, SEO meta). Run with `npx tsx scripts/seed-from-json.ts`
-- [ ] T008 Run `npx drizzle-kit push` to create SQLite tables, then run seed script to populate initial data
-- [ ] T009 [P] Configure Auth.js v5 in auth.ts with Credentials provider (username + bcrypt password verification from DB), JWT session strategy, and session callback. Export auth, signIn, signOut handlers
-- [ ] T010 [P] Update middleware.ts to protect /admin/* routes (except /admin/login) — redirect unauthenticated users to /admin/login. Keep existing locale redirect logic for public routes
-- [ ] T011 Create admin layout in app/admin/layout.tsx with sidebar navigation (links to all admin sections: Dashboard, Hero, About, Services, Gallery, Regions, Contact, SEO, Settings), auth session check, sign out button, responsive sidebar (collapsible on mobile)
-- [ ] T012 [P] Create reusable admin components: components/admin/BilingualInput.tsx (paired TH/EN text inputs with labels), components/admin/BilingualTextarea.tsx (paired TH/EN textareas), components/admin/ImageUploader.tsx (drag & drop upload with preview, accepts JPG/PNG/WebP, max 5MB validation, shows upload progress)
-- [ ] T013 [P] Create image upload API route in app/api/admin/upload/route.ts: accept multipart/form-data, validate file type (JPG/PNG/WebP) and size (<=5MB), process with Sharp (resize max 1920px width, convert to WebP, quality 80), save to data/uploads/ with unique filename, return path + dimensions
-- [ ] T014 Create admin login page in app/admin/login/page.tsx with username + password form, error display for invalid credentials, redirect to /admin on success. Use shadcn/ui Card, Input, Button components
+- [X] T005 Define all Drizzle schema tables in lib/schema.ts: adminUsers, siteSettings, heroContent, aboutContent, trustIndicators, services, serviceImages, galleryCategories, galleryImages, serviceRegions, contactInfo, socialLinks, seoMeta — per data-model.md entity definitions
+- [X] T006 Create database connection singleton in lib/db.ts using better-sqlite3 with WAL mode enabled, Drizzle ORM wrapper, and automatic directory/file creation for data/ocha.db
+- [X] T007 Create seed script in scripts/seed-from-json.ts that reads existing dictionaries/th.json + dictionaries/en.json and inserts all content into database tables (services, about, hero, trust indicators, gallery categories/images from /pics/performance/, service regions, contact info, social links, SEO meta). Run with `npx tsx scripts/seed-from-json.ts`
+- [X] T008 Run `npx drizzle-kit push` to create SQLite tables, then run seed script to populate initial data
+- [X] T009 [P] Configure Auth.js v5 in auth.ts with Credentials provider (username + bcrypt password verification from DB), JWT session strategy, and session callback. Export auth, signIn, signOut handlers
+- [X] T010 [P] Update middleware.ts to protect /admin/* routes (except /admin/login) — redirect unauthenticated users to /admin/login. Keep existing locale redirect logic for public routes
+- [X] T011 Create admin layout in app/admin/layout.tsx with sidebar navigation (links to all admin sections: Dashboard, Hero, About, Services, Gallery, Regions, Contact, SEO, Settings), auth session check, sign out button, responsive sidebar (collapsible on mobile)
+- [X] T012 [P] Create reusable admin components: components/admin/BilingualInput.tsx (paired TH/EN text inputs with labels), components/admin/BilingualTextarea.tsx (paired TH/EN textareas), components/admin/ImageUploader.tsx (drag & drop upload with preview, accepts JPG/PNG/WebP, max 5MB validation, shows upload progress)
+- [X] T013 [P] Create image upload API route in app/api/admin/upload/route.ts: accept multipart/form-data, validate file type (JPG/PNG/WebP) and size (<=5MB), process with Sharp (resize max 1920px width, convert to WebP, quality 80), save to data/uploads/ with unique filename, return path + dimensions
+- [X] T014 Create admin login page in app/admin/login/page.tsx with username + password form, error display for invalid credentials, redirect to /admin on success. Use shadcn/ui Card, Input, Button components
 
 **Checkpoint**: Database has all tables with seeded data, admin login works at /admin/login, protected routes redirect to login, admin layout shows sidebar navigation
 
@@ -51,10 +51,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T015 [US1] Create services CRUD API routes: app/api/admin/services/route.ts (GET all sorted by sort_order, POST create new service), app/api/admin/services/[id]/route.ts (PUT update, DELETE with cascade images), app/api/admin/services/reorder/route.ts (PUT update sort_order from ids array)
-- [ ] T016 [US1] Create service images API routes: app/api/admin/services/[id]/images/route.ts (GET images for service, POST upload + attach image), app/api/admin/services/[id]/images/[imageId]/route.ts (DELETE image + file), app/api/admin/services/[id]/images/reorder/route.ts (PUT reorder)
-- [ ] T017 [US1] Create services list page in app/admin/services/page.tsx: data table showing all services (name TH, name EN, seats, active status, image count, sort order), add new service button (opens dialog), drag-to-reorder, toggle active, delete with confirmation dialog
-- [ ] T018 [US1] Create single service edit page in app/admin/services/[id]/page.tsx: BilingualInput for name, BilingualTextarea for description, seats input, slug input, active toggle, image gallery with ImageUploader + drag-to-reorder + delete, save button
+- [X] T015 [US1] Create services CRUD API routes: app/api/admin/services/route.ts (GET all sorted by sort_order, POST create new service), app/api/admin/services/[id]/route.ts (PUT update, DELETE with cascade images), app/api/admin/services/reorder/route.ts (PUT update sort_order from ids array)
+- [X] T016 [US1] Create service images API routes: app/api/admin/services/[id]/images/route.ts (GET images for service, POST upload + attach image), app/api/admin/services/[id]/images/[imageId]/route.ts (DELETE image + file), app/api/admin/services/[id]/images/reorder/route.ts (PUT reorder)
+- [X] T017 [US1] Create services list page in app/admin/services/page.tsx: data table showing all services (name TH, name EN, seats, active status, image count, sort order), add new service button (opens dialog), drag-to-reorder, toggle active, delete with confirmation dialog
+- [X] T018 [US1] Create single service edit page in app/admin/services/[id]/page.tsx: BilingualInput for name, BilingualTextarea for description, seats input, slug input, active toggle, image gallery with ImageUploader + drag-to-reorder + delete, save button
 
 **Checkpoint**: Admin can fully manage services — create, edit, delete, reorder, manage images per service
 
@@ -68,10 +68,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T019 [P] [US2] Create gallery categories CRUD API routes: app/api/admin/gallery-categories/route.ts (GET all with image counts, POST create), app/api/admin/gallery-categories/[id]/route.ts (PUT update, DELETE cascade images)
-- [ ] T020 [P] [US2] Create gallery images API routes: app/api/admin/gallery-categories/[id]/images/route.ts (GET images, POST upload), app/api/admin/gallery-categories/[id]/images/[imageId]/route.ts (DELETE image + file), app/api/admin/gallery-categories/[id]/images/reorder/route.ts (PUT reorder)
-- [ ] T021 [US2] Create gallery categories list page in app/admin/gallery/page.tsx: cards for each category showing name TH/EN, image count, thumbnail preview. Add category button, edit name dialog, delete with confirmation
-- [ ] T022 [US2] Create gallery category images page in app/admin/gallery/[id]/page.tsx: grid of images with drag-to-reorder, ImageUploader for batch upload, delete individual images, alt text editing (TH/EN)
+- [X] T019 [P] [US2] Create gallery categories CRUD API routes: app/api/admin/gallery-categories/route.ts (GET all with image counts, POST create), app/api/admin/gallery-categories/[id]/route.ts (PUT update, DELETE cascade images)
+- [X] T020 [P] [US2] Create gallery images API routes: app/api/admin/gallery-categories/[id]/images/route.ts (GET images, POST upload), app/api/admin/gallery-categories/[id]/images/[imageId]/route.ts (DELETE image + file), app/api/admin/gallery-categories/[id]/images/reorder/route.ts (PUT reorder)
+- [X] T021 [US2] Create gallery categories list page in app/admin/gallery/page.tsx: cards for each category showing name TH/EN, image count, thumbnail preview. Add category button, edit name dialog, delete with confirmation
+- [X] T022 [US2] Create gallery category images page in app/admin/gallery/[id]/page.tsx: grid of images with drag-to-reorder, ImageUploader for batch upload, delete individual images, alt text editing (TH/EN)
 
 **Checkpoint**: Admin can fully manage gallery — create/edit/delete categories, upload/reorder/delete images per category
 
@@ -85,16 +85,16 @@
 
 ### Implementation for User Story 3
 
-- [ ] T023 [P] [US3] Create singleton content API routes: app/api/admin/hero/route.ts (GET/PUT), app/api/admin/about/route.ts (GET/PUT), app/api/admin/contact-info/route.ts (GET/PUT), app/api/admin/seo/route.ts (GET/PUT), app/api/admin/site-settings/route.ts (GET/PUT)
-- [ ] T024 [P] [US3] Create trust indicators CRUD API routes: app/api/admin/trust-indicators/route.ts (GET/POST), app/api/admin/trust-indicators/[id]/route.ts (PUT/DELETE), app/api/admin/trust-indicators/reorder/route.ts (PUT reorder)
-- [ ] T025 [P] [US3] Create social links CRUD API routes: app/api/admin/social-links/route.ts (GET/POST), app/api/admin/social-links/[id]/route.ts (PUT/DELETE with active toggle), app/api/admin/social-links/reorder/route.ts (PUT reorder)
-- [ ] T026 [P] [US3] Create service regions CRUD API routes: app/api/admin/service-regions/route.ts (GET/POST), app/api/admin/service-regions/[id]/route.ts (PUT/DELETE), app/api/admin/service-regions/reorder/route.ts (PUT reorder)
-- [ ] T027 [US3] Create Hero edit page in app/admin/hero/page.tsx: BilingualInput for title_main, title_accent, subtitle, cta_text. Image upload for background. Save button with success toast
-- [ ] T028 [US3] Create About edit page in app/admin/about/page.tsx: BilingualInput for title, BilingualTextarea for description. Trust indicators list below with add/edit/delete/reorder (icon selector, value input, BilingualInput for label)
-- [ ] T029 [US3] Create Contact edit page in app/admin/contact/page.tsx: phone input, BilingualTextarea for address, email input. Social links management below: list with platform, URL, active toggle, add/delete/reorder
-- [ ] T030 [US3] Create SEO edit page in app/admin/seo/page.tsx: BilingualInput for title, BilingualTextarea for description, image upload for OG image
-- [ ] T031 [US3] Create Settings edit page in app/admin/settings/page.tsx: BilingualInput for business_name and tagline, logo upload, color pickers for primary/secondary colors
-- [ ] T032 [US3] Create Service Regions edit page in app/admin/regions/page.tsx: list of regions with BilingualInput for name, editable province lists (TH/EN as comma-separated or tag input), add/delete/reorder regions
+- [X] T023 [P] [US3] Create singleton content API routes: app/api/admin/hero/route.ts (GET/PUT), app/api/admin/about/route.ts (GET/PUT), app/api/admin/contact-info/route.ts (GET/PUT), app/api/admin/seo/route.ts (GET/PUT), app/api/admin/site-settings/route.ts (GET/PUT)
+- [X] T024 [P] [US3] Create trust indicators CRUD API routes: app/api/admin/trust-indicators/route.ts (GET/POST), app/api/admin/trust-indicators/[id]/route.ts (PUT/DELETE), app/api/admin/trust-indicators/reorder/route.ts (PUT reorder)
+- [X] T025 [P] [US3] Create social links CRUD API routes: app/api/admin/social-links/route.ts (GET/POST), app/api/admin/social-links/[id]/route.ts (PUT/DELETE with active toggle), app/api/admin/social-links/reorder/route.ts (PUT reorder)
+- [X] T026 [P] [US3] Create service regions CRUD API routes: app/api/admin/service-regions/route.ts (GET/POST), app/api/admin/service-regions/[id]/route.ts (PUT/DELETE), app/api/admin/service-regions/reorder/route.ts (PUT reorder)
+- [X] T027 [US3] Create Hero edit page in app/admin/hero/page.tsx: BilingualInput for title_main, title_accent, subtitle, cta_text. Image upload for background. Save button with success toast
+- [X] T028 [US3] Create About edit page in app/admin/about/page.tsx: BilingualInput for title, BilingualTextarea for description. Trust indicators list below with add/edit/delete/reorder (icon selector, value input, BilingualInput for label)
+- [X] T029 [US3] Create Contact edit page in app/admin/contact/page.tsx: phone input, BilingualTextarea for address, email input. Social links management below: list with platform, URL, active toggle, add/delete/reorder
+- [X] T030 [US3] Create SEO edit page in app/admin/seo/page.tsx: BilingualInput for title, BilingualTextarea for description, image upload for OG image
+- [X] T031 [US3] Create Settings edit page in app/admin/settings/page.tsx: BilingualInput for business_name and tagline, logo upload, color pickers for primary/secondary colors
+- [X] T032 [US3] Create Service Regions edit page in app/admin/regions/page.tsx: list of regions with BilingualInput for name, editable province lists (TH/EN as comma-separated or tag input), add/delete/reorder regions
 
 **Checkpoint**: Admin can edit all text content, manage trust indicators, social links, regions, SEO, and site settings
 
@@ -108,19 +108,19 @@
 
 ### Implementation for User Story 4
 
-- [ ] T033 [US4] Create public content API route in app/api/content/route.ts that queries all DB tables and returns complete content JSON (settings, hero, about + indicators, services + images, gallery + images, regions, contact, social links, SEO). Add Cache-Control headers for ISR (60s stale-while-revalidate)
-- [ ] T034 [US4] Create content fetching utility in lib/content.ts with `getContent(lang: 'th' | 'en')` function that calls /api/content and maps bilingual fields to the requested language. Include revalidation tag for on-demand cache invalidation
-- [ ] T035 [US4] Update app/[lang]/page.tsx to fetch content from database via lib/content.ts instead of dictionary imports. Pass DB content to all section components. Keep dictionary for UI strings (nav labels, form labels, validation messages)
-- [ ] T036 [P] [US4] Update components/Hero.tsx to accept content props from DB instead of dictionary. Map DB fields (title_main, title_accent, subtitle, cta_text) to existing component props
-- [ ] T037 [P] [US4] Update components/AboutUs.tsx to accept content props from DB. Trust indicators from DB array instead of hardcoded dictionary entries
-- [ ] T038 [P] [US4] Update components/Services.tsx to accept services array from DB with dynamic images per service (from ServiceImage records) instead of hardcoded image arrays
-- [ ] T039 [P] [US4] Update components/PerformanceGallery.tsx to accept gallery categories + images from DB instead of hardcoded image lists and tab names
-- [ ] T040 [P] [US4] Update components/ServiceAreas.tsx to accept regions from DB instead of hardcoded province lists in dictionary
-- [ ] T041 [P] [US4] Update components/Footer.tsx, components/SocialLinks.tsx, components/FloatingButtons.tsx to read social links from DB (active links only, sorted by sort_order) instead of environment variables
-- [ ] T042 [P] [US4] Update components/Header.tsx to read business name + tagline from DB instead of dictionary brand section
-- [ ] T043 [US4] Update components/ContactForm.tsx to read service types for dropdown from DB (active services only) instead of hardcoded dictionary options
-- [ ] T044 [US4] Update app/[lang]/layout.tsx generateMetadata to read SEO meta (title, description, OG image) from DB instead of dictionary meta section
-- [ ] T045 [US4] Add revalidatePath/revalidateTag calls to all admin API PUT/POST/DELETE routes so frontend updates immediately after admin saves content
+- [X] T033 [US4] Create public content API route in app/api/content/route.ts that queries all DB tables and returns complete content JSON (settings, hero, about + indicators, services + images, gallery + images, regions, contact, social links, SEO). Add Cache-Control headers for ISR (60s stale-while-revalidate)
+- [X] T034 [US4] Create content fetching utility in lib/content.ts with `getContent(lang: 'th' | 'en')` function that calls /api/content and maps bilingual fields to the requested language. Include revalidation tag for on-demand cache invalidation
+- [X] T035 [US4] Update app/[lang]/page.tsx to fetch content from database via lib/content.ts instead of dictionary imports. Pass DB content to all section components. Keep dictionary for UI strings (nav labels, form labels, validation messages)
+- [X] T036 [P] [US4] Update components/Hero.tsx to accept content props from DB instead of dictionary. Map DB fields (title_main, title_accent, subtitle, cta_text) to existing component props
+- [X] T037 [P] [US4] Update components/AboutUs.tsx to accept content props from DB. Trust indicators from DB array instead of hardcoded dictionary entries
+- [X] T038 [P] [US4] Update components/Services.tsx to accept services array from DB with dynamic images per service (from ServiceImage records) instead of hardcoded image arrays
+- [X] T039 [P] [US4] Update components/PerformanceGallery.tsx to accept gallery categories + images from DB instead of hardcoded image lists and tab names
+- [X] T040 [P] [US4] Update components/ServiceAreas.tsx to accept regions from DB instead of hardcoded province lists in dictionary
+- [X] T041 [P] [US4] Update components/Footer.tsx, components/SocialLinks.tsx, components/FloatingButtons.tsx to read social links from DB (active links only, sorted by sort_order) instead of environment variables
+- [X] T042 [P] [US4] Update components/Header.tsx to read business name + tagline from DB instead of dictionary brand section
+- [X] T043 [US4] Update components/ContactForm.tsx to read service types for dropdown from DB (active services only) instead of hardcoded dictionary options
+- [X] T044 [US4] Update app/[lang]/layout.tsx generateMetadata to read SEO meta (title, description, OG image) from DB instead of dictionary meta section
+- [X] T045 [US4] Add revalidatePath/revalidateTag calls to all admin API PUT/POST/DELETE routes so frontend updates immediately after admin saves content
 
 **Checkpoint**: Frontend displays all content from database. Admin edits show on frontend within seconds. No Docker rebuild needed for content changes.
 
