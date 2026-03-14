@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { getDictionary, type Lang } from "./dictionaries";
-import "@/app/globals.css";
+import { getContent } from "@/lib/content";
 
 const supportedLangs = new Set<string>(["th", "en"]);
 
@@ -21,23 +21,27 @@ export async function generateMetadata({
   const { lang: rawLang } = await params;
   const lang = toLang(rawLang);
   const dict = await getDictionary(lang);
+  const content = getContent(lang);
   const baseUrl = "https://ochatravel.co.th";
 
+  const title = content.seo?.title || dict.meta.title;
+  const description = content.seo?.description || dict.meta.description;
+
   return {
-    title: dict.meta.title,
-    description: dict.meta.description,
+    title,
+    description,
     alternates: {
       canonical: `${baseUrl}/${lang}`,
       languages: { th: `${baseUrl}/th`, en: `${baseUrl}/en` },
     },
     openGraph: {
-      title: dict.meta.title,
-      description: dict.meta.description,
+      title,
+      description,
       url: `${baseUrl}/${lang}`,
-      siteName: "Ocha Travel Transport",
+      siteName: content.settings?.businessName || "Ocha Travel Transport",
       locale: lang === "th" ? "th_TH" : "en_US",
       type: "website",
-      images: [{ url: `${baseUrl}/logos/Ocha-Full-2_0.png`, width: 1200, height: 630 }],
+      images: [{ url: content.seo?.ogImage ? `${baseUrl}${content.seo.ogImage}` : `${baseUrl}/logos/Ocha-Full-2_0.png`, width: 1200, height: 630 }],
     },
   };
 }
@@ -52,14 +56,15 @@ export default async function LangLayout({
   const { lang: rawLang } = await params;
   const lang = toLang(rawLang);
   const dict = await getDictionary(lang);
+  const content = getContent(lang);
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Ocha Travel Transport",
-    description: dict.meta.description,
-    telephone: "+66661244999",
+    name: content.settings?.businessName || "Ocha Travel Transport",
+    description: content.seo?.description || dict.meta.description,
+    telephone: content.contact?.phone ? `+66${content.contact.phone.slice(1)}` : "+66661244999",
     address: {
       "@type": "PostalAddress",
       streetAddress: "168/284 Moo 3",
@@ -81,27 +86,13 @@ export default async function LangLayout({
   };
 
   return (
-    <html lang={lang}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-      <body className="font-sans bg-white text-secondary antialiased selection:bg-primary/30">
-        {children}
-      </body>
+    <div lang={lang} className="bg-white text-secondary selection:bg-primary/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {children}
       {gaId && <GoogleAnalytics gaId={gaId} />}
-    </html>
+    </div>
   );
 }

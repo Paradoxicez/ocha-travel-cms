@@ -298,8 +298,8 @@ export default function GalleryImagesPage() {
             </div>
           )}
           <DialogFooter>
-            <DialogClose>
-              <Button variant="outline">Cancel</Button>
+            <DialogClose render={<Button variant="outline" />}>
+              Cancel
             </DialogClose>
             <Button
               variant="destructive"

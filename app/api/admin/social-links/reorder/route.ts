@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { socialLinks } from "@/lib/schema";
@@ -27,6 +28,9 @@ export async function PUT(request: Request) {
         .where(eq(socialLinks.id, ids[i]));
     }
 
+    revalidatePath("/th");
+    revalidatePath("/en");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ success: false, error: "Failed to reorder social links" }, { status: 500 });

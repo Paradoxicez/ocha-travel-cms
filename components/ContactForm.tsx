@@ -15,6 +15,7 @@ import {
   Shield,
 } from "lucide-react";
 import type { Dictionary, Lang } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 import "react-day-picker/style.css";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -23,15 +24,22 @@ type Errors = Partial<Record<string, string>>;
 export default function ContactForm({
   dict,
   lang,
+  content,
 }: {
   dict: Dictionary;
   lang: Lang;
+  content?: SiteContent;
 }) {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
+
+  // For service type dropdown, use DB services if available
+  const serviceTypes = content?.services && content.services.length > 0
+    ? content.services.map((s) => ({ value: s.slug, label: s.name }))
+    : dict.contact.serviceTypes;
 
   const dateLocale = lang === "th" ? th : enUS;
   const v = dict.contact.validation;
@@ -314,7 +322,7 @@ export default function ContactForm({
                         <option value="" disabled>
                           {dict.contact.form.serviceTypePlaceholder}
                         </option>
-                        {dict.contact.serviceTypes.map((st) => (
+                        {serviceTypes.map((st) => (
                           <option key={st.value} value={st.value}>
                             {st.label}
                           </option>

@@ -1,12 +1,20 @@
 import Image from "next/image";
 import { Phone, ChevronDown } from "lucide-react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 
-export default function Hero({ dict }: { dict: Dictionary }) {
-  const titleParts = dict.hero.title.split(",");
-  const titleMain = titleParts[0];
+export default function Hero({ dict, content }: { dict: Dictionary; content?: SiteContent }) {
+  const hero = content?.hero;
+  const titleMain = hero?.titleMain || dict.hero.title.split(",")[0];
   const titleAccent =
-    titleParts.length > 1 ? titleParts.slice(1).join(",") : "";
+    hero?.titleAccent ||
+    (dict.hero.title.split(",").length > 1
+      ? dict.hero.title.split(",").slice(1).join(",")
+      : "");
+  const subtitle = hero?.subtitle || dict.hero.tagline;
+  const ctaText = hero?.ctaText || dict.hero.cta;
+  const badge = hero?.titleAccent || dict.hero.badge;
+  const bgImage = hero?.bgImage || "/pics/hero.png";
 
   return (
     <section
@@ -14,7 +22,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
       className="relative flex h-screen items-center overflow-hidden"
     >
       <Image
-        src="/pics/hero.png"
+        src={bgImage}
         alt=""
         fill
         className="object-cover"
@@ -25,7 +33,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
         <div className="max-w-2xl text-white">
           <span className="mb-6 inline-block rounded-full border border-primary/30 bg-primary/20 px-4 py-1.5 text-sm font-bold text-primary backdrop-blur-sm">
-            {dict.hero.badge}
+            {badge}
           </span>
           <h1 className="mb-6 text-5xl font-bold leading-tight md:text-7xl">
             {titleMain}
@@ -37,7 +45,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
             )}
           </h1>
           <p className="mb-10 max-w-lg text-lg leading-relaxed text-zinc-300 md:text-xl">
-            {dict.hero.tagline}
+            {subtitle}
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <a
@@ -45,7 +53,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
               className="flex items-center justify-center gap-3 rounded-xl bg-primary px-8 py-4 text-lg font-bold text-white shadow-xl shadow-primary/30 transition-all hover:bg-rose-600"
             >
               <Phone className="h-5 w-5" />
-              {dict.hero.cta}
+              {ctaText}
             </a>
             <a
               href="#services"

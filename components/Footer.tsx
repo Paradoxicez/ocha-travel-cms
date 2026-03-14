@@ -1,10 +1,24 @@
 import Image from "next/image";
 import { MapPin, Phone, Clock } from "lucide-react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 import SocialLinks from "./SocialLinks";
 
-export default function Footer({ dict }: { dict: Dictionary }) {
+export default function Footer({ dict, content }: { dict: Dictionary; content?: SiteContent }) {
   const year = new Date().getFullYear();
+
+  const serviceList = content?.services && content.services.length > 0
+    ? content.services.slice(0, 5).map((s) => ({ id: s.slug, name: s.name }))
+    : dict.services.items.slice(0, 5);
+
+  const address = content?.contact?.address || dict.footer.address;
+  const phone = content?.contact?.phone || "0661244999";
+  const formattedPhone = `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`;
+
+  const socialLinksData = content?.socialLinks?.map((s) => ({
+    platform: s.platform,
+    url: s.url,
+  }));
 
   return (
     <footer className="bg-zinc-950 pb-12 pt-24 text-zinc-400">
@@ -33,7 +47,7 @@ export default function Footer({ dict }: { dict: Dictionary }) {
             </div>
             <p className="mb-1 text-sm font-semibold text-zinc-300">{dict.footer.company}</p>
             <p className="mb-6 text-sm leading-relaxed">{dict.footer.desc}</p>
-            <SocialLinks location="footer" />
+            <SocialLinks location="footer" socialLinksData={socialLinksData} />
           </div>
 
           {/* Quick Links */}
@@ -81,7 +95,7 @@ export default function Footer({ dict }: { dict: Dictionary }) {
               {dict.footer.services}
             </h5>
             <ul className="space-y-4 text-sm">
-              {dict.services.items.slice(0, 5).map((s) => (
+              {serviceList.map((s) => (
                 <li key={s.id}>
                   <a
                     href="#services"
@@ -102,15 +116,15 @@ export default function Footer({ dict }: { dict: Dictionary }) {
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
                 <MapPin className="h-[18px] w-[18px] shrink-0 text-primary" />
-                <span>{dict.footer.address}</span>
+                <span>{address}</span>
               </li>
               <li className="flex gap-3">
                 <Phone className="h-[18px] w-[18px] shrink-0 text-primary" />
                 <a
-                  href="tel:0661244999"
+                  href={`tel:${phone}`}
                   className="transition-colors hover:text-primary"
                 >
-                  {dict.footer.phone}
+                  {formattedPhone}
                 </a>
               </li>
               <li className="flex gap-3">

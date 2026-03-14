@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { aboutContent } from "@/lib/schema";
@@ -36,12 +37,18 @@ export async function PUT(request: Request) {
         .set({ titleTh, titleEn, descriptionTh, descriptionEn })
         .where(eq(aboutContent.id, 1))
         .returning();
+      revalidatePath("/th");
+      revalidatePath("/en");
+      revalidatePath("/");
       return NextResponse.json({ success: true, data: result[0] });
     } else {
       const result = await db
         .insert(aboutContent)
         .values({ id: 1, titleTh, titleEn, descriptionTh, descriptionEn })
         .returning();
+      revalidatePath("/th");
+      revalidatePath("/en");
+      revalidatePath("/");
       return NextResponse.json({ success: true, data: result[0] }, { status: 201 });
     }
   } catch (e) {

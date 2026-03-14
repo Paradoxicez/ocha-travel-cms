@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CoverFlowGallery from "./CoverFlowGallery";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 
 const performanceImages: Record<string, string[]> = {
   general: [
@@ -41,10 +42,44 @@ const performanceImages: Record<string, string[]> = {
   ].map((f) => `/pics/performance/van-service/${f}.jpg`),
 };
 
-const tabKeys = ["general", "transport", "van"] as const;
+const defaultTabKeys = ["general", "transport", "van"] as const;
 
-export default function PerformanceGallery({ dict }: { dict: Dictionary }) {
-  const [activeTab, setActiveTab] = useState<(typeof tabKeys)[number]>("general");
+export default function PerformanceGallery({ dict, content }: { dict: Dictionary; content?: SiteContent }) {
+  // Use DB gallery if available
+  const galleryCategories = content?.gallery && content.gallery.length > 0
+    ? content.gallery
+    : null;
+
+  const tabKeys = galleryCategories
+    ? galleryCategories.map((c) => c.slug)
+    : [...defaultTabKeys];
+
+  const [activeTab, setActiveTab] = useState(tabKeys[0]);
+
+  // Get images for active tab
+  const getImages = () => {
+    if (galleryCategories) {
+      const cat = galleryCategories.find((c) => c.slug === activeTab);
+      return cat ? cat.images.map((img) => img.path) : [];
+    }
+    return performanceImages[activeTab as keyof typeof performanceImages] || [];
+  };
+
+  const getTabName = (key: string) => {
+    if (galleryCategories) {
+      const cat = galleryCategories.find((c) => c.slug === key);
+      return cat?.name || key;
+    }
+    return dict.portfolio.tabs[key as keyof typeof dict.portfolio.tabs] || key;
+  };
+
+  const getAlt = () => {
+    if (galleryCategories) {
+      const cat = galleryCategories.find((c) => c.slug === activeTab);
+      return cat?.images[0]?.alt || "";
+    }
+    return dict.portfolio.alt[activeTab as keyof typeof dict.portfolio.alt] || "";
+  };
 
   return (
     <section id="portfolio" className="bg-zinc-950 py-24">
@@ -72,15 +107,15 @@ export default function PerformanceGallery({ dict }: { dict: Dictionary }) {
                   : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white"
               }`}
             >
-              {dict.portfolio.tabs[key]}
+              {getTabName(key)}
             </button>
           ))}
         </div>
 
         <CoverFlowGallery
           key={activeTab}
-          images={performanceImages[activeTab]}
-          alt={dict.portfolio.alt[activeTab]}
+          images={getImages()}
+          alt={getAlt()}
         />
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { heroContent } from "@/lib/schema";
@@ -46,6 +47,9 @@ export async function PUT(request: Request) {
         })
         .where(eq(heroContent.id, 1))
         .returning();
+      revalidatePath("/th");
+      revalidatePath("/en");
+      revalidatePath("/");
       return NextResponse.json({ success: true, data: result[0] });
     } else {
       const result = await db
@@ -63,6 +67,9 @@ export async function PUT(request: Request) {
           bgImagePath: bgImagePath || null,
         })
         .returning();
+      revalidatePath("/th");
+      revalidatePath("/en");
+      revalidatePath("/");
       return NextResponse.json({ success: true, data: result[0] }, { status: 201 });
     }
   } catch (e) {

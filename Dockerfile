@@ -24,6 +24,9 @@ ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Install Sharp for image processing in production
+RUN npm install sharp
+
 # Copy public assets
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/pics ./pics
@@ -31,6 +34,14 @@ COPY --from=builder /app/pics ./pics
 # Copy standalone output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy seed script and dictionaries for initial setup
+COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/dictionaries ./dictionaries
+COPY --from=builder /app/lib ./lib
+
+# Create data directory with correct permissions
+RUN mkdir -p /data/uploads && chown -R nextjs:nodejs /data
 
 USER nextjs
 

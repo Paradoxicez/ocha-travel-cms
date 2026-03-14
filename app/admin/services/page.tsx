@@ -12,7 +12,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
@@ -167,12 +166,10 @@ export default function ServicesPage() {
         </div>
 
         <Dialog open={addOpen} onOpenChange={setAddOpen}>
-          <DialogTrigger>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Add New
-            </Button>
-          </DialogTrigger>
+          <Button onClick={() => setAddOpen(true)}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add New
+          </Button>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Add New Service</DialogTitle>
@@ -210,8 +207,8 @@ export default function ServicesPage() {
               </div>
             </div>
             <DialogFooter>
-              <DialogClose>
-                <Button variant="outline">Cancel</Button>
+              <DialogClose render={<Button variant="outline" />}>
+                Cancel
               </DialogClose>
               <Button onClick={handleCreate} disabled={creating}>
                 {creating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -288,8 +285,8 @@ export default function ServicesPage() {
             delete all associated images. This action cannot be undone.
           </p>
           <DialogFooter>
-            <DialogClose>
-              <Button variant="outline">Cancel</Button>
+            <DialogClose render={<Button variant="outline" />}>
+              Cancel
             </DialogClose>
             <Button variant="destructive" onClick={handleDelete} disabled={deleting}>
               {deleting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

@@ -32,7 +32,7 @@ function scanImages(dirPath: string): string[] {
     .readdirSync(fullPath)
     .filter((f) => /\.(jpg|jpeg|png|webp)$/i.test(f))
     .sort()
-    .map((f) => `${dirPath}/${f}`);
+    .map((f) => `/${dirPath}/${f}`);
 }
 
 // ─── Gallery category mapping ────────────────────────────────

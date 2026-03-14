@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { serviceRegions } from "@/lib/schema";
@@ -34,6 +35,9 @@ export async function PUT(
       return NextResponse.json({ success: false, error: "Service region not found" }, { status: 404 });
     }
 
+    revalidatePath("/th");
+    revalidatePath("/en");
+    revalidatePath("/");
     return NextResponse.json({ success: true, data: result[0] });
   } catch (e) {
     const message = e instanceof Error ? e.message : "Failed to update service region";
@@ -61,6 +65,9 @@ export async function DELETE(
       return NextResponse.json({ success: false, error: "Service region not found" }, { status: 404 });
     }
 
+    revalidatePath("/th");
+    revalidatePath("/en");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ success: false, error: "Failed to delete service region" }, { status: 500 });

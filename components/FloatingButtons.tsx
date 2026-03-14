@@ -81,12 +81,33 @@ const wechatIcon = (
   </svg>
 );
 
-export default function FloatingButtons() {
+type FloatingProps = {
+  content?: {
+    socialLinks?: { platform: string; url: string }[];
+    contact?: { phone: string } | null;
+  };
+};
+
+export default function FloatingButtons({ content }: FloatingProps) {
   const [showWeChat, setShowWeChat] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const phone = content?.contact?.phone || "0661244999";
+
+  // Override floatingSocials URLs with DB data if available
+  const socials = content?.socialLinks && content.socialLinks.length > 0
+    ? floatingSocials.map((fs) => {
+        const match = content.socialLinks!.find((s) => s.platform.toLowerCase() === fs.platform.toLowerCase());
+        return match ? { ...fs, url: match.url } : fs;
+      })
+    : floatingSocials;
+
+  // For WeChat
+  const wechatData = content?.socialLinks?.find((s) => s.platform.toLowerCase() === "wechat");
+  const wechatId = wechatData?.url || WECHAT_ID;
+
   function handleCopy() {
-    navigator.clipboard.writeText(WECHAT_ID).then(() => {
+    navigator.clipboard.writeText(wechatId).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -98,7 +119,7 @@ export default function FloatingButtons() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {floatingSocials.map((s) => (
+      {socials.map((s) => (
         <a
           key={s.platform}
           href={s.url}
@@ -119,7 +140,7 @@ export default function FloatingButtons() {
               WeChat ID:
             </span>
             <code className="rounded bg-zinc-100 px-2 py-0.5 text-sm font-bold text-zinc-900">
-              {WECHAT_ID}
+              {wechatId}
             </code>
             <button
               onClick={handleCopy}
@@ -139,7 +160,7 @@ export default function FloatingButtons() {
       </div>
 
       <a
-        href="tel:0661244999"
+        href={`tel:${phone}`}
         className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-2xl transition-transform hover:scale-110 active:scale-90"
         aria-label="Call Us"
       >

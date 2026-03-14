@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Phone, Menu, X } from "lucide-react";
 import type { Dictionary, Lang } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 
 const navItems = (dict: Dictionary) => [
   { id: "services", label: dict.nav.services },
@@ -16,9 +17,11 @@ const navItems = (dict: Dictionary) => [
 export default function Header({
   dict,
   lang,
+  content,
 }: {
   dict: Dictionary;
   lang: Lang;
+  content?: SiteContent;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -28,6 +31,9 @@ export default function Header({
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const brandName = content?.settings?.businessName || dict.brand.name;
+  const brandTagline = content?.settings?.tagline || dict.brand.tagline;
 
   const items = navItems(dict);
 
@@ -78,10 +84,10 @@ export default function Header({
           />
           <div className="flex flex-col">
             <span className={`text-xl font-extrabold leading-none tracking-tight transition-colors duration-300 ${scrolled ? "text-secondary" : "text-white"}`}>
-              {dict.brand.name}
+              {brandName}
             </span>
             <span className={`text-[9px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${scrolled ? "text-primary" : "text-white/80"}`}>
-              {dict.brand.tagline}
+              {brandTagline}
             </span>
           </div>
         </Link>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MapPin } from "lucide-react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 
 /* Pin positions for all 77 provinces — calibrated from real lat/lon */
 const regionPins: { x: number; y: number; label: string }[][] = [
@@ -103,8 +104,12 @@ const regionPins: { x: number; y: number; label: string }[][] = [
   ],
 ];
 
-export default function ServiceAreas({ dict }: { dict: Dictionary }) {
+export default function ServiceAreas({ dict, content }: { dict: Dictionary; content?: SiteContent }) {
   const [activeRegion, setActiveRegion] = useState<number | null>(null);
+
+  const regions = content?.regions && content.regions.length > 0
+    ? content.regions.map((r) => ({ name: r.name, areas: r.provinces }))
+    : dict.serviceAreas.regions;
 
   return (
     <section id="service-areas" className="relative overflow-hidden bg-zinc-50 py-24">
@@ -130,7 +135,7 @@ export default function ServiceAreas({ dict }: { dict: Dictionary }) {
         <div className="grid items-start gap-10 lg:grid-cols-5">
           {/* Left — Region cards */}
           <div className="space-y-3 lg:col-span-3">
-            {dict.serviceAreas.regions.map((region, i) => (
+            {regions.map((region, i) => (
               <div
                 key={i}
                 className={`group cursor-pointer rounded-2xl border p-5 transition-all ${

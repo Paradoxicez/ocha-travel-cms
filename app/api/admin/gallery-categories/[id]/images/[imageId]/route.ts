@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { galleryImages } from "@/lib/schema";
@@ -47,6 +48,9 @@ export async function DELETE(
       .delete(galleryImages)
       .where(eq(galleryImages.id, Number(imageId)));
 
+    revalidatePath("/th");
+    revalidatePath("/en");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(

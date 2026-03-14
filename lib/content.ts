@@ -17,6 +17,8 @@ import { asc, eq } from "drizzle-orm";
 
 export type Lang = "th" | "en";
 
+export type SiteContent = ReturnType<typeof getContent>;
+
 function pick<T>(th: T, en: T, lang: Lang): T {
   return lang === "th" ? th : en;
 }

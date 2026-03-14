@@ -16,7 +16,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
@@ -187,12 +186,10 @@ export default function GalleryPage() {
 
         {/* Add Category Dialog */}
         <Dialog open={addOpen} onOpenChange={setAddOpen}>
-          <DialogTrigger>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Category
-            </Button>
-          </DialogTrigger>
+          <Button onClick={() => setAddOpen(true)}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Category
+          </Button>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add Gallery Category</DialogTitle>
@@ -216,8 +213,8 @@ export default function GalleryPage() {
               </div>
             </div>
             <DialogFooter>
-              <DialogClose>
-                <Button variant="outline">Cancel</Button>
+              <DialogClose render={<Button variant="outline" />}>
+                Cancel
               </DialogClose>
               <Button onClick={handleAdd} disabled={adding}>
                 {adding && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -301,8 +298,8 @@ export default function GalleryPage() {
             </div>
           </div>
           <DialogFooter>
-            <DialogClose>
-              <Button variant="outline">Cancel</Button>
+            <DialogClose render={<Button variant="outline" />}>
+              Cancel
             </DialogClose>
             <Button onClick={handleEdit} disabled={editing}>
               {editing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -324,8 +321,8 @@ export default function GalleryPage() {
             category. This action cannot be undone.
           </p>
           <DialogFooter>
-            <DialogClose>
-              <Button variant="outline">Cancel</Button>
+            <DialogClose render={<Button variant="outline" />}>
+              Cancel
             </DialogClose>
             <Button
               variant="destructive"

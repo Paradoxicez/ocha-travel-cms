@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { galleryImages } from "@/lib/schema";
@@ -73,6 +74,9 @@ export async function POST(
       })
       .returning();
 
+    revalidatePath("/th");
+    revalidatePath("/en");
+    revalidatePath("/");
     return NextResponse.json({ success: true, data: result[0] }, { status: 201 });
   } catch {
     return NextResponse.json(

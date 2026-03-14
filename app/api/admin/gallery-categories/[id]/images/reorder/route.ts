@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { galleryImages } from "@/lib/schema";
@@ -33,6 +34,9 @@ export async function PUT(
         .where(eq(galleryImages.id, ids[i]));
     }
 
+    revalidatePath("/th");
+    revalidatePath("/en");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(

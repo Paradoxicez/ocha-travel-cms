@@ -1,5 +1,6 @@
 import { Car, Truck, Star, Users, Package } from "lucide-react";
 import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { SiteContent } from "@/lib/content";
 import ServiceCardCarousel from "./ServiceCardCarousel";
 
 const serviceIcons: Record<string, React.ReactNode> = {
@@ -50,7 +51,23 @@ const carImages: Record<string, string[]> = {
   ].map((f) => `/pics/cars/truck/${f}.jpg`),
 };
 
-export default function Services({ dict }: { dict: Dictionary }) {
+export default function Services({ dict, content }: { dict: Dictionary; content?: SiteContent }) {
+  const serviceItems = content?.services && content.services.length > 0
+    ? content.services.map((s) => ({
+        id: s.slug,
+        name: s.name,
+        description: s.description,
+        seats: s.seats,
+        images: s.images,
+      }))
+    : dict.services.items.map((s) => ({
+        id: s.id,
+        name: s.name,
+        description: s.description,
+        seats: s.seats,
+        images: carImages[s.id] || [],
+      }));
+
   return (
     <section id="services" className="bg-zinc-50 py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -65,36 +82,35 @@ export default function Services({ dict }: { dict: Dictionary }) {
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {dict.services.items.map((service) => {
-            const images = carImages[service.id];
-            const hasImages = images && images.length > 0;
+          {serviceItems.map((item) => {
+            const hasImages = item.images && item.images.length > 0;
 
             return (
               <div
-                key={service.id}
+                key={item.id}
                 className="group overflow-hidden rounded-3xl border border-zinc-100 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-xl"
               >
                 {hasImages && (
                   <ServiceCardCarousel
-                    images={images}
-                    alt={service.name}
+                    images={item.images}
+                    alt={item.name}
                   />
                 )}
 
                 <div className="p-8">
                   {!hasImages && (
                     <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                      {serviceIcons[service.id]}
+                      {serviceIcons[item.id]}
                     </div>
                   )}
                   <h4 className="mb-1 text-2xl font-bold text-secondary">
-                    {service.name}
+                    {item.name}
                   </h4>
                   <p className="mb-4 text-sm font-semibold text-primary">
-                    {service.seats}
+                    {item.seats}
                   </p>
                   <p className="leading-relaxed text-zinc-500">
-                    {service.description}
+                    {item.description}
                   </p>
                 </div>
               </div>

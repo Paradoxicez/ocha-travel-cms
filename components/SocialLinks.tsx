@@ -95,12 +95,32 @@ const wechatIcon = (
   </svg>
 );
 
-export default function SocialLinks({ location = "footer" }: { location?: string }) {
+type SocialLinkData = { platform: string; url: string };
+
+export default function SocialLinks({
+  location = "footer",
+  socialLinksData,
+}: {
+  location?: string;
+  socialLinksData?: SocialLinkData[];
+}) {
   const [showWeChat, setShowWeChat] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // Override socialConfigs URLs with DB data if available
+  const configs = socialLinksData
+    ? socialConfigs.map((sc) => {
+        const match = socialLinksData.find((s) => s.platform.toLowerCase() === sc.platform.toLowerCase());
+        return match ? { ...sc, url: match.url } : sc;
+      })
+    : socialConfigs;
+
+  // For WeChat, check if DB has a WeChat entry
+  const wechatData = socialLinksData?.find((s) => s.platform.toLowerCase() === "wechat");
+  const wechatId = wechatData?.url || WECHAT_ID;
+
   function handleCopy() {
-    navigator.clipboard.writeText(WECHAT_ID).then(() => {
+    navigator.clipboard.writeText(wechatId).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -109,7 +129,7 @@ export default function SocialLinks({ location = "footer" }: { location?: string
 
   return (
     <div className="flex items-center gap-3">
-      {socialConfigs.map((s) => (
+      {configs.map((s) => (
         <a
           key={s.platform}
           href={s.url}
@@ -131,7 +151,7 @@ export default function SocialLinks({ location = "footer" }: { location?: string
               WeChat ID:
             </span>
             <code className="rounded bg-zinc-100 px-2 py-0.5 text-sm font-bold text-zinc-900">
-              {WECHAT_ID}
+              {wechatId}
             </code>
             <button
               onClick={handleCopy}

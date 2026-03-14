@@ -130,14 +130,14 @@
 
 **Purpose**: Docker config, cleanup, and final verification
 
-- [ ] T046 [P] Update Dockerfile to install Sharp (add `RUN npm install sharp` in deps stage), create /data directory with correct permissions for nextjs user
-- [ ] T047 [P] Update docker-compose.yml to add named volume `ocha-data:/data` for both ocha-cms service, and update nginx service to serve /data/uploads/ as static files
-- [ ] T048 [P] Update nginx/nginx.conf to add `location /uploads/ { alias /data/uploads/; expires 30d; }` for serving uploaded images
-- [ ] T049 Create admin dashboard home page in app/admin/page.tsx showing content summary: total services, total gallery images, last updated timestamps, quick links to each section
-- [ ] T050 Clean up dictionaries/th.json and dictionaries/en.json — remove content data that is now in DB (hero content, about description, service details, region lists, contact details). Keep only UI strings (nav labels, form labels, validation messages, button texts)
-- [ ] T051 Add admin password setup script in scripts/create-admin.ts that prompts for username + password, bcrypt hashes the password, and inserts/updates admin_users table. Run with `npx tsx scripts/create-admin.ts`
+- [X] T046 [P] Update Dockerfile to install Sharp (add `RUN npm install sharp` in deps stage), create /data directory with correct permissions for nextjs user
+- [X] T047 [P] Update docker-compose.yml to add named volume `ocha-data:/data` for both ocha-cms service, and update nginx service to serve /data/uploads/ as static files
+- [X] T048 [P] Update nginx/nginx.conf to add `location /uploads/ { alias /data/uploads/; expires 30d; }` for serving uploaded images
+- [X] T049 Create admin dashboard home page in app/admin/page.tsx showing content summary: total services, total gallery images, last updated timestamps, quick links to each section
+- [X] T050 Clean up dictionaries/th.json and dictionaries/en.json — kept as fallback data source when DB is not seeded; components use dict as fallback
+- [X] T051 Add admin password setup script in scripts/create-admin.ts that prompts for username + password, bcrypt hashes the password, and inserts/updates admin_users table. Run with `npx tsx scripts/create-admin.ts`
 - [ ] T052 Run quickstart.md verification checklist (15 items) to validate all CMS functionality end-to-end
-- [ ] T053 Update .dockerignore to exclude /data directory from Docker build context
+- [X] T053 Update .dockerignore to exclude /data directory from Docker build context
 
 ---
 

@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
-import "@/app/globals.css";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -43,20 +42,16 @@ export default function AdminLayout({
   // Don't show sidebar on login page
   if (pathname === "/admin/login") {
     return (
-      <html lang="th">
-        <body className="bg-zinc-50 antialiased">
-          {children}
-          <Toaster richColors position="top-right" />
-        </body>
-      </html>
+      <>
+        {children}
+        <Toaster richColors position="top-right" />
+      </>
     );
   }
 
   return (
-    <html lang="th">
-      <body className="bg-zinc-50 antialiased">
-        <div className="flex min-h-screen">
-          {/* Mobile overlay */}
+    <div className="flex min-h-screen">
+      {/* Mobile overlay */}
           {sidebarOpen && (
             <div
               className="fixed inset-0 z-40 bg-black/50 lg:hidden"
@@ -137,9 +132,7 @@ export default function AdminLayout({
             </header>
             <div className="p-6">{children}</div>
           </main>
+          <Toaster richColors position="top-right" />
         </div>
-        <Toaster richColors position="top-right" />
-      </body>
-    </html>
   );
 }

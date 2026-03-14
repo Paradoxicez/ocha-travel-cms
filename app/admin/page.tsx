@@ -36,15 +36,20 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [servicesRes, regionsRes, socialRes] = await Promise.all([
+        const [servicesRes, galleryRes, regionsRes, socialRes] = await Promise.all([
           fetch("/api/admin/services").then((r) => r.json()),
+          fetch("/api/admin/gallery-categories").then((r) => r.json()),
           fetch("/api/admin/service-regions").then((r) => r.json()),
           fetch("/api/admin/social-links").then((r) => r.json()),
         ]);
 
+        const galleryImageCount = galleryRes.success
+          ? galleryRes.data.reduce((sum: number, cat: { imageCount?: number }) => sum + (cat.imageCount || 0), 0)
+          : 0;
+
         setStats({
           services: servicesRes.success ? servicesRes.data.length : 0,
-          galleryImages: 0, // Gallery API may not exist yet
+          galleryImages: galleryImageCount,
           regions: regionsRes.success ? regionsRes.data.length : 0,
           socialLinks: socialRes.success ? socialRes.data.length : 0,
         });

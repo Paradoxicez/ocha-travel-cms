@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { contactInfo } from "@/lib/schema";
@@ -36,12 +37,18 @@ export async function PUT(request: Request) {
         .set({ phone, addressTh, addressEn, email })
         .where(eq(contactInfo.id, 1))
         .returning();
+      revalidatePath("/th");
+      revalidatePath("/en");
+      revalidatePath("/");
       return NextResponse.json({ success: true, data: result[0] });
     } else {
       const result = await db
         .insert(contactInfo)
         .values({ id: 1, phone, addressTh, addressEn, email })
         .returning();
+      revalidatePath("/th");
+      revalidatePath("/en");
+      revalidatePath("/");
       return NextResponse.json({ success: true, data: result[0] }, { status: 201 });
     }
   } catch (e) {
