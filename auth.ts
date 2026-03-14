@@ -10,21 +10,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const username = credentials?.username as string;
-        const password = credentials?.password as string;
+        try {
+          const username = credentials?.username as string;
+          const password = credentials?.password as string;
 
-        if (!username || !password) return null;
+          console.log("[auth] authorize called, username:", username);
 
-        const adminUsername = process.env.ADMIN_USERNAME;
-        const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+          if (!username || !password) {
+            console.log("[auth] missing username or password");
+            return null;
+          }
 
-        if (!adminUsername || !adminPasswordHash) return null;
-        if (username !== adminUsername) return null;
+          const adminUsername = process.env.ADMIN_USERNAME;
+          const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
 
-        const valid = await bcrypt.compare(password, adminPasswordHash);
-        if (!valid) return null;
+          console.log("[auth] env ADMIN_USERNAME:", adminUsername);
+          console.log("[auth] env ADMIN_PASSWORD_HASH exists:", !!adminPasswordHash);
+          console.log("[auth] env ADMIN_PASSWORD_HASH length:", adminPasswordHash?.length);
 
-        return { id: "1", name: adminUsername };
+          if (!adminUsername || !adminPasswordHash) {
+            console.log("[auth] missing env vars");
+            return null;
+          }
+          if (username !== adminUsername) {
+            console.log("[auth] username mismatch");
+            return null;
+          }
+
+          const valid = await bcrypt.compare(password, adminPasswordHash);
+          console.log("[auth] bcrypt compare result:", valid);
+          if (!valid) return null;
+
+          return { id: "1", name: adminUsername };
+        } catch (err) {
+          console.error("[auth] authorize error:", err);
+          return null;
+        }
       },
     }),
   ],
