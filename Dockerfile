@@ -35,14 +35,15 @@ COPY --from=builder /app/pics ./pics
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Install production native dependencies (sharp, better-sqlite3)
+# Install production native dependencies (sharp, better-sqlite3) + tsx for scripts
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev && rm -rf /root/.npm
+RUN npm ci --omit=dev && npm install tsx && rm -rf /root/.npm
 
 # Copy seed script and dictionaries for initial setup
 COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/dictionaries ./dictionaries
 COPY --from=builder /app/lib ./lib
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
 
 # Create data directory with correct permissions
 RUN mkdir -p /data/uploads && chown -R nextjs:nodejs /data
