@@ -6,7 +6,7 @@ services:
     expose:
       - "3000"
     env_file:
-      - .env.local
+      - .env.production
     volumes:
       - ocha-data:/data
     restart: unless-stopped
