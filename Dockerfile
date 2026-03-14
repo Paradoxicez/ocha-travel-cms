@@ -1,11 +1,13 @@
 # Stage 1: Dependencies
 FROM node:22-alpine AS deps
+RUN apk add --no-cache python3 make g++
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --ignore-scripts
+RUN npm ci
 
 # Stage 2: Build
 FROM node:22-alpine AS builder
+RUN apk add --no-cache python3 make g++
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -15,6 +17,7 @@ RUN npm run build
 
 # Stage 3: Production
 FROM node:22-alpine AS runner
+RUN apk add --no-cache python3 make g++
 WORKDIR /app
 
 ENV NODE_ENV=production
@@ -24,9 +27,6 @@ ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Install Sharp for image processing in production
-RUN npm install sharp
-
 # Copy public assets
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/pics ./pics
@@ -34,6 +34,10 @@ COPY --from=builder /app/pics ./pics
 # Copy standalone output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Install production native dependencies (sharp, better-sqlite3)
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && rm -rf /root/.npm
 
 # Copy seed script and dictionaries for initial setup
 COPY --from=builder /app/scripts ./scripts
