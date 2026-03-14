@@ -15,7 +15,6 @@
   "dependencies": {
     "@base-ui/react": "^1.2.0",
     "@next/third-parties": "^16.1.6",
-    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.6.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -36,7 +35,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.4",
     "@tailwindcss/postcss": "^4.2.1",
-    "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^25.3.3",
     "@types/nodemailer": "^7.0.11",
