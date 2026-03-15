@@ -1,8 +1,6 @@
 services:
   ocha-cms:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/paradoxicez/ocha-travel-cms:latest
     expose:
       - "3000"
     env_file:
